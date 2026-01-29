@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>フィードバックシート</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        max-width: 880px;
+        margin: 0 auto;
+        padding: 40px;
+        box-sizing: border-box;
+        background-color: #e68a8a;
+        color: #ffffff;
+        font-family: 'Zen Maru Gothic', sans-serif;
+      }
+
+      h1 {
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 30px;
+        border-bottom: 2px solid #ffffff;
+        border-top: 2px solid #ffffff;
+        padding: 15px 0;
+        color: #ffffff;
+      }
+
+      .section {
+        margin-bottom: 30px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+        padding-bottom: 20px;
+      }
+
+      .section:last-child {
+        border-bottom: none;
+      }
+
+      .input-group {
+        margin-bottom: 20px;
+      }
+
+      .label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+      }
+
+      .input-field {
+        width: 100%;
+        background-color: #ffffff;
+        border: 1px solid #ffffff;
+        padding: 10px;
+        color: #333333;
+        font-family: 'Zen Maru Gothic', sans-serif;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+
+      .input-line {
+        display: inline-block;
+        width: 200px;
+        border-bottom: 1px solid #ffffff;
+        margin-left: 10px;
+      }
+
+      h2 {
+        font-size: 18px;
+        margin-top: 25px;
+        margin-bottom: 15px;
+        color: #ffffff;
+        border-left: 4px solid #ffffff;
+        padding-left: 10px;
+      }
+
+      .check-group {
+        margin-bottom: 20px;
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 15px;
+        border-radius: 8px;
+      }
+
+      .check-title {
+        font-weight: 700;
+        margin-bottom: 10px;
+        display: block;
+      }
+
+      .checkbox-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+        padding-left: 10px;
+      }
+
+      .checkbox-input {
+        width: 18px;
+        height: 18px;
+        margin-right: 10px;
+        cursor: pointer;
+        flex-shrink: 0;
+        background-color: #ffffff;
+        border: 2px solid #ffffff;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        border-radius: 3px;
+      }
+
+      .checkbox-input:checked {
+        background-color: #ffffff;
+        position: relative;
+      }
+
+      .checkbox-input:checked::after {
+        content: '✓';
+        position: absolute;
+        top: -2px;
+        left: 2px;
+        font-size: 14px;
+        color: #e68a8a;
+        font-weight: bold;
+      }
+
+      .textarea-field {
+        width: 100%;
+        height: 100px;
+        background-color: #ffffff;
+        border: 1px solid #ffffff;
+        padding: 10px;
+        color: #333333;
+        font-family: 'Zen Maru Gothic', sans-serif;
+        border-radius: 4px;
+        resize: none;
+        box-sizing: border-box;
+        margin-top: 5px;
+      }
+
+      .separator {
+        border-top: 2px solid #ffffff;
+        margin: 40px 0;
+      }
+
+      /* 結果画面のコンパクトスタイル */
+      #resultSection {
+        font-size: 14px;
+      }
+
+      #resultSection h1 {
+        font-size: 20px;
+        margin-bottom: 15px;
+        padding: 10px 0;
+      }
+
+      #resultSection h2 {
+        font-size: 16px;
+        margin-top: 15px;
+        margin-bottom: 10px;
+        padding-left: 8px;
+      }
+
+      #resultSection .section {
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+      }
+
+      #resultSection .check-group {
+        margin-bottom: 12px;
+        padding: 10px;
+      }
+
+      #resultSection .check-title {
+        font-size: 14px;
+        margin-bottom: 6px;
+      }
+
+      #resultSection .input-group {
+        margin-bottom: 12px;
+      }
+
+      #resultSection .label {
+        font-size: 14px;
+        margin-bottom: 4px;
+      }
+
+      #resultSection [id^="result"] {
+        font-size: 13px;
+        padding: 8px !important;
+        min-height: 40px !important;
+        line-height: 1.4;
+      }
+
+      #resultSection button {
+        padding: 12px 30px;
+        font-size: 16px;
+        margin-top: 15px;
+      }
+
+      /* 印刷時のスタイル調整 */
+      @media print {
+        body {
+          background-color: #ffffff;
+          color: #000000;
+          padding: 0;
+        }
+        h1,
+        h2 {
+          color: #000000;
+          border-color: #000000;
+        }
+        .section {
+          border-bottom-color: #000000;
+        }
+        .input-field,
+        .textarea-field {
+          border: 1px solid #000000;
+        }
+        .check-group {
+          background-color: transparent;
+          border: 1px solid #000000;
+        }
+        .checkbox-input {
+          border: 1px solid #000000;
+        }
+        button {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>フィードバックシート</h1>
+
+    <div id="inputSection">
+      <div class="section">
+        <div style="font-size: 18px; margin-bottom: 15px">
+          あなたの名前：<input type="text" id="myName" class="input-field" style="display: inline-block; width: 300px; margin-left: 10px;" />
+        </div>
+        <div style="font-size: 18px">
+          相手の名前：<input type="text" id="targetName" class="input-field" style="display: inline-block; width: 300px; margin-left: 10px;" />
+        </div>
+      </div>
+
+      <div class="section">
+        <div style="text-align: center; margin-bottom: 20px; font-weight: bold; font-size: 20px">【チェック項目】</div>
+
+        <div class="check-group">
+          <span class="check-title">■ 1ページ1メッセージができているか？</span>
+          <div class="checkbox-item">
+            <input type="checkbox" id="check1_1" class="checkbox-input" />
+            <span>各ブロックは1つのことだけを伝えているか</span>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="check1_2" class="checkbox-input" />
+            <span>情報が混ざっていないか</span>
+          </div>
+        </div>
+
+        <div class="check-group">
+          <span class="check-title">■ ラブレターになっているか？</span>
+          <div class="checkbox-item">
+            <input type="checkbox" id="check2_1" class="checkbox-input" />
+            <span>応援の視点で書けているか</span>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="check2_2" class="checkbox-input" />
+            <span>想いが伝わるか</span>
+          </div>
+        </div>
+
+        <div class="check-group">
+          <span class="check-title">■ 阿部広太郎の5ステップを踏んでいるか？</span>
+          <div class="checkbox-item">
+            <input type="checkbox" id="check3_1" class="checkbox-input" />
+            <span>①挨拶（タイトル）</span>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="check3_2" class="checkbox-input" />
+            <span>②共感（現状の素敵なところ）</span>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="check3_3" class="checkbox-input" />
+            <span>③課題発見（もったいないポイント）</span>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="check3_4" class="checkbox-input" />
+            <span>④提案（提案内容と理由）</span>
+          </div>
+          <div class="checkbox-item">
+            <input type="checkbox" id="check3_5" class="checkbox-input" />
+            <span>⑤クロージング（想い）</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="separator"></div>
+
+      <div class="section">
+        <div class="input-group">
+          <label class="label">【特に良かったブロックは？】</label>
+          <textarea id="goodBlock" class="textarea-field"></textarea>
+        </div>
+
+        <div class="input-group">
+          <label class="label">【もっと明確にできるブロックは？】</label>
+          <textarea id="improveBlock" class="textarea-field"></textarea>
+        </div>
+
+        <div class="input-group">
+          <label class="label">【心に響いた表現は？】</label>
+          <textarea id="impression" class="textarea-field"></textarea>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin: 40px 0;">
+        <button onclick="submitFeedback()" style="background-color: #ffffff; color: #e68a8a; border: none; padding: 15px 40px; font-size: 18px; font-weight: bold; border-radius: 8px; cursor: pointer; font-family: 'Zen Maru Gothic', sans-serif;">送信</button>
+      </div>
+    </div>
+
+    <!-- 結果表示セクション -->
+    <div id="resultSection" style="display: none;">
+      <h1 style="font-size: 20px; margin-bottom: 15px; padding: 10px 0;">フィードバック結果</h1>
+      
+      <div class="section" style="margin-bottom: 12px; padding-bottom: 10px;">
+        <div style="font-size: 14px; margin-bottom: 6px;">
+          <strong>フィードバック者：</strong><span id="resultMyName"></span>
+        </div>
+        <div style="font-size: 14px;">
+          <strong>対象者：</strong><span id="resultTargetName"></span>
+        </div>
+      </div>
+
+      <div class="section" style="margin-bottom: 12px; padding-bottom: 10px;">
+        <h2 style="font-size: 16px; margin-top: 10px; margin-bottom: 8px;">チェック項目</h2>
+        
+        <div class="check-group" style="margin-bottom: 10px; padding: 8px;">
+          <span class="check-title" style="font-size: 13px; margin-bottom: 4px;">■ 1ページ1メッセージ</span>
+          <div id="result_check1" style="padding-left: 15px; font-size: 12px;"></div>
+        </div>
+
+        <div class="check-group" style="margin-bottom: 10px; padding: 8px;">
+          <span class="check-title" style="font-size: 13px; margin-bottom: 4px;">■ ラブレター</span>
+          <div id="result_check2" style="padding-left: 15px; font-size: 12px;"></div>
+        </div>
+
+        <div class="check-group" style="margin-bottom: 10px; padding: 8px;">
+          <span class="check-title" style="font-size: 13px; margin-bottom: 4px;">■ 5ステップ</span>
+          <div id="result_check3" style="padding-left: 15px; font-size: 12px;"></div>
+        </div>
+      </div>
+
+      <div class="section" style="margin-bottom: 12px; padding-bottom: 10px;">
+        <div class="input-group" style="margin-bottom: 10px;">
+          <label class="label" style="font-size: 13px; margin-bottom: 3px;">【特に良かったブロック】</label>
+          <div id="resultGoodBlock" style="background-color: rgba(255, 255, 255, 0.1); padding: 8px; border-radius: 6px; min-height: 35px; font-size: 12px; line-height: 1.4;"></div>
+        </div>
+
+        <div class="input-group" style="margin-bottom: 10px;">
+          <label class="label" style="font-size: 13px; margin-bottom: 3px;">【もっと明確にできるブロック】</label>
+          <div id="resultImproveBlock" style="background-color: rgba(255, 255, 255, 0.1); padding: 8px; border-radius: 6px; min-height: 35px; font-size: 12px; line-height: 1.4;"></div>
+        </div>
+
+        <div class="input-group" style="margin-bottom: 10px;">
+          <label class="label" style="font-size: 13px; margin-bottom: 3px;">【心に響いた表現】</label>
+          <div id="resultImpression" style="background-color: rgba(255, 255, 255, 0.1); padding: 8px; border-radius: 6px; min-height: 35px; font-size: 12px; line-height: 1.4;"></div>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin: 20px 0 10px 0;">
+        <button onclick="resetForm()" style="background-color: #ffffff; color: #e68a8a; border: none; padding: 10px 30px; font-size: 15px; font-weight: bold; border-radius: 8px; cursor: pointer; font-family: 'Zen Maru Gothic', sans-serif;">リセット</button>
+      </div>
+    </div>
+
+    <script>
+      function submitFeedback() {
+        const myName = document.getElementById('myName').value;
+        const targetName = document.getElementById('targetName').value;
+
+        if (!myName || !targetName) {
+          alert('あなたの名前と相手の名前を入力してください');
+          return;
+        }
+
+        // 名前の表示
+        document.getElementById('resultMyName').textContent = myName;
+        document.getElementById('resultTargetName').textContent = targetName;
+
+        // チェックボックスの結果を表示
+        displayCheckResults('check1', 'result_check1', [
+          '各ブロックは1つのことだけを伝えているか',
+          '情報が混ざっていないか'
+        ]);
+        
+        displayCheckResults('check2', 'result_check2', [
+          '応援の視点で書けているか',
+          '想いが伝わるか'
+        ]);
+        
+        displayCheckResults('check3', 'result_check3', [
+          '①挨拶（タイトル）',
+          '②共感（現状の素敵なところ）',
+          '③課題発見（もったいないポイント）',
+          '④提案（提案内容と理由）',
+          '⑤クロージング（想い）'
+        ]);
+
+        // テキストエリアの内容を表示
+        document.getElementById('resultGoodBlock').textContent = document.getElementById('goodBlock').value || '（記入なし）';
+        document.getElementById('resultImproveBlock').textContent = document.getElementById('improveBlock').value || '（記入なし）';
+        document.getElementById('resultImpression').textContent = document.getElementById('impression').value || '（記入なし）';
+
+        // セクションの切り替え
+        document.getElementById('inputSection').style.display = 'none';
+        document.getElementById('resultSection').style.display = 'block';
+        
+        // ページトップにスクロール
+        window.scrollTo(0, 0);
+      }
+
+      function displayCheckResults(prefix, resultId, labels) {
+        const resultDiv = document.getElementById(resultId);
+        resultDiv.innerHTML = '';
+        
+        labels.forEach((label, index) => {
+          const checkbox = document.getElementById(`${prefix}_${index + 1}`);
+          const checked = checkbox.checked;
+          const div = document.createElement('div');
+          div.style.marginBottom = '8px';
+          div.innerHTML = `<span style="margin-right: 10px;">${checked ? '✓' : '□'}</span>${label}`;
+          resultDiv.appendChild(div);
+        });
+      }
+
+      function resetForm() {
+        // 入力フォームをクリア
+        document.getElementById('myName').value = '';
+        document.getElementById('targetName').value = '';
+        document.getElementById('goodBlock').value = '';
+        document.getElementById('improveBlock').value = '';
+        document.getElementById('impression').value = '';
+
+        // すべてのチェックボックスをクリア
+        document.querySelectorAll('.checkbox-input').forEach(cb => cb.checked = false);
+
+        // セクションの切り替え
+        document.getElementById('inputSection').style.display = 'block';
+        document.getElementById('resultSection').style.display = 'none';
+        
+        // ページトップにスクロール
+        window.scrollTo(0, 0);
+      }
+    </script>
+  </body>
+</html>
